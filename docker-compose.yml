@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  modularlab:
+    container_name: modularlab
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3001:3001
+    volumes:
+      - ./src:/modularlab/src
+    environment:
+      ENVIRONMENT: development
+    depends_on:
+      - postgres
+    networks:
+      - backend_network
+    links:
+      - postgres:postgres
+
+  postgres:
+    image: "postgres:13"
+    container_name: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    command:
+      ["postgres", "-c", "log_statement=all", "-c", "log_destination=stderr"]
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: modularlab_db
+      POSTGRES_HOST_AUTH_METHOD: trust
+    networks:
+      - backend_network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+volumes:
+  postgres_data:
+
+networks:
+  backend_network:
+    name: modularlab
+    driver: bridge
