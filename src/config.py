@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     hugging_face_token: str = os.getenv("HUGGING_FACE_TOKEN", '')
     easy_ocr_api: str = os.getenv('EASY_OCR_API', '')
     easy_ocr_token: str = os.getenv('EASY_OCR_TOKEN', '')
+    azure_cognitive_services_key: str = os.getenv('AZURE_COGNITIVE_SERVICES', '')
 
 
 @lru_cache

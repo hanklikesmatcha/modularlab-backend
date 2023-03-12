@@ -12,6 +12,7 @@ HUGGING_FACE_API_TOKEN = settings().hugging_face_token
 HUGGING_FACE_API = settings().hugging_face_api
 EASY_OCR_API = settings().easy_ocr_api
 EASY_OCR_TOKEN = settings().easy_ocr_token
+AZURE_COGNITIVE_SERVICES = settings().azure_cognitive_services_key
 
 def image_recognition(file: typing.ByteString):
     potential_objects = []
@@ -41,7 +42,7 @@ def mcft_ocr(file: typing.ByteString):
     Authenticate
     Authenticates your credentials and creates a client.
     '''
-    subscription_key = "76e2b9cfc7b3469f8682319340416672"
+    subscription_key = AZURE_COGNITIVE_SERVICES
     endpoint = "https://tribes-mvp.cognitiveservices.azure.com/"
     computervision_client = ComputerVisionClient(endpoint, CognitiveServicesCredentials(subscription_key))
     '''
@@ -90,7 +91,7 @@ def mcft_image_categorisation(file):
     Authenticate
     Authenticates your credentials and creates a client.
     '''
-    subscription_key = "76e2b9cfc7b3469f8682319340416672"
+    subscription_key = AZURE_COGNITIVE_SERVICES
     endpoint = "https://tribes-mvp.cognitiveservices.azure.com/"
     computervision_client = ComputerVisionClient(endpoint, CognitiveServicesCredentials(subscription_key))
     '''
